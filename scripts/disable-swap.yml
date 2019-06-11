@@ -1,0 +1,14 @@
+#need to use kubectl to orchistrate galaxy slaves. kubectl does not work when the VM has a swap file.
+---
+- name: Remove swapfile from /etc/fstab
+  mount:
+    name: "{{ item }}"
+    fstype: swap
+    state: absent
+  with_items:
+    - swap
+    - none
+
+- name: Disable swap
+  command: swapoff -a
+  when: ansible_swaptotal_mb > 0

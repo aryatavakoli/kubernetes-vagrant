@@ -1,0 +1,26 @@
+#Configures Kubernetes Cluster, letting the VM know the local IP and subnet mask of the master
+#TODO: Create global vars for name of user, IP address and subnet mask
+
+- name: Initialize the Kubernetes cluster using kubeadm
+  command: kubeadm init --apiserver-advertise-address="192.168.50.10" --apiserver-cert-extra-sans="192.168.50.10"  --node-name k8s-master --pod-network-cidr=192.168.0.0/16
+
+- name: Setup kubeconfig for user "Vagrant"
+  command: "{{ item }}"
+  with_items:
+    - mkdir -p /home/vagrant/.kube
+    - cp -i /etc/kubernetes/admin.conf /home/vagrant/.kube/config
+    - chown vagrant:vagrant /home/vagrant/.kube/config
+
+#Calico allows layer 3 routing to every pod 
+- name: Install calico pod network
+  become: false
+  command: kubectl create -f https://docs.projectcalico.org/v3.4/getting-started/kubernetes/installation/hosted/calico.yaml
+
+#This connects each of the instances in galaxy to the master k8 node 
+- name: Generate join command
+  command: kubeadm token create --print-join-command
+  register: join_command
+
+- name: Copy join command to local file
+  local_action: copy content="{{ join_command.stdout_lines[0] }}" dest="./join-command"
+  

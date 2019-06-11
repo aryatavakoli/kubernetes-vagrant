@@ -1,0 +1,27 @@
+---
+#Master 
+- hosts: all
+  become: yes
+  tasks:
+    - name: Install Prerequisites
+      include: dependencies.yml
+
+    - name: Set up Docker and All its Dependencies
+      include: docker.yml 
+    
+    - name: Disable Swap
+      include: disable-swap.yml
+
+    - name: Install Kubernetes
+      include: k8.yml
+
+    - name: Configure Kubeadm
+      include: kubeadm-config.yml
+
+    - name: Configure Cluster
+      include: cluster-config.yml
+
+#handler to check if Docker is running (start praying)
+  handlers:
+  - name: docker status
+    service: name=docker state=started 

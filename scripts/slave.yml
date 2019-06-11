@@ -1,0 +1,44 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Install Prerequisites
+      include: dependencies.yml
+
+    - name: Set up Docker and All its Dependencies
+      include: docker.yml 
+    
+    - name: Disable Swap
+      include: disable-swap.yml
+
+    - name: Install Kubernetes
+      include: k8.yml
+
+    - name: Copy the join command to server location
+      copy: src=join-command dest=/tmp/join-command.sh mode=0777
+
+    - name: Join the node to cluster
+      command: sh /tmp/join-command.sh
+
+    - name: Install Dependencies
+      apt:
+        name: "{{ item }}"
+      become: yes
+      when: ansible_os_family == 'Debian'
+      with_items:
+        - git
+        - python-virtualenv
+
+    - name: Install Dependencies
+      yum:
+        name: "{{ item }}"
+      become: yes
+      when: ansible_os_family == 'RedHat'
+      with_items:
+        - mercurial
+        - python-virtualenv
+  
+#handler to check if Docker is running (start praying)
+  handlers:
+  - name: docker status
+    service: name=docker state=started 

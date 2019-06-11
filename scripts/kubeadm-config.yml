@@ -1,0 +1,18 @@
+---
+- name: Install Python
+  raw: test -e /usr/bin/python || (apt -y update && apt install -y python)
+
+- name: Update all packages to the latest version
+  apt:
+    upgrade: dist
+     
+- name: Reload System Daemons
+  command: "{{ item }}"
+  with_items:
+    - systemctl daemon-reload 
+    - systemctl restart kubelet
+    - systemctl restart docker
+    - systemctl enable docker
+
+- name: Pre-pull cluster images using kubeadm
+  command: kubeadm config images pull
