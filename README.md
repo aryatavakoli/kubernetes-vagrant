@@ -1,13 +1,13 @@
 # kubernetes-vagrant
-Creates a Virtual Kubernetes Cluster using Vagrant and Ansible. Helpful for testing cluster enviroments.
+Creates a local Virtual Kubernetes Cluster using Vagrant and Ansible. Helpful for testing cluster enviroments.
 
-## Required Software
+## Dependencies 
+* Ansible
 * Python and pip
 * Virtual Box
-* Vagrant 
-* Ansible
+* Vagrant
 
-## Setup (Ubuntu)
+## Installing Dependencies (Ubuntu)
 ### Install Python and Pip:
 ```sh
 $ sudo apt update
@@ -36,5 +36,13 @@ $ sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_r
 Install Virutalbox
 ```sh
 $ sudo apt update
-$ sudo apt-get install virtualbox-6.0
+$ sudo apt install virtualbox-6.0
+```
+### Install Vagrant
+Get latest realease of Vagrant. Replace ${VER} with latest version of Vagrant (i.e 2.2.4)
+```sh
+$ wget https://releases.hashicorp.com/vagrant/${VER}/vagrant_${VER}_x86_64.deb
+```
+```sh
+$ sudo dpkg -i vagrant_${VER}_x86_64.deb
 ```
