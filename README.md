@@ -1,12 +1,13 @@
 # kubernetes-vagrant
-Creates a local Virtual Kubernetes Cluster using Vagrant and Ansible. Helpful for testing cluster enviroments.
-
+Automatically deploys a local Virtual Kubernetes Cluster on a local machine. 
+* Helpful for testing cluster enviroments.
+* Every VM in the cluster only has Docker and/or Kubernetes Installed.
+* Ansible Scripts in ```scripts/``` can be easily modified to install any other needed software
 ## Dependencies 
 * Ansible
 * Python and pip
 * Virtual Box
 * Vagrant
-
 ## Installing Dependencies (Ubuntu)
 ### Install Python and Pip:
 ```sh
@@ -45,4 +46,30 @@ $ wget https://releases.hashicorp.com/vagrant/${VER}/vagrant_${VER}_x86_64.deb
 ```
 ```sh
 $ sudo dpkg -i vagrant_${VER}_x86_64.deb
+```
+## Running the Virtual Cluster
+### Clone the Repo
+```sh
+$ git clone https://github.com/aryatavakoli/kubernetes-vagrant.git
+```
+### Change directoryt cloned folder
+```sh
+$ cd kubernetes-vagrant
+```
+### Create and run the cluster
+Running
+```sh
+$ vagrant up
+```
+will automatically:
+1. Use Vagrant to create and network the required VMs.
+2. Use Ansible to install and Configure Docker and Kubernetes
+
+To stop the cluster:
+```sh
+$ vagrant halt
+```
+To delete the cluster and start fresh:Automatically deploys a local Virtual Kubernetes Cluster on a local machine.
+```sh
+vagrant -f destroy
 ```
