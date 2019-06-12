@@ -52,7 +52,7 @@ $ sudo dpkg -i vagrant_${VER}_x86_64.deb
 ```sh
 $ git clone https://github.com/aryatavakoli/kubernetes-vagrant.git
 ```
-### Change directoryt cloned folder
+### Change directory to cloned folder
 ```sh
 $ cd kubernetes-vagrant
 ```
@@ -69,7 +69,7 @@ To stop the cluster:
 ```sh
 $ vagrant halt
 ```
-To delete the cluster and start fresh:Automatically deploys a local Virtual Kubernetes Cluster on a local machine.
+To delete the cluster and start fresh:
 ```sh
 vagrant -f destroy
 ```
