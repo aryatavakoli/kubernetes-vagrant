@@ -17,7 +17,7 @@ Vagrant.configure("2") do |config|
     config.vm.define "k8s-master" do |k|
         k.vm.box = IMAGE
         k.vm.network "private_network", ip: "192.168.50.10"
-        #k.vm.network :forwarded_port, guest: 8001, host: 8080
+        k.vm.network :forwarded_port, guest: 80, host: 8083
         k.vm.hostname = "k8s-master"
         k.vm.provision "ansible" do |ansible|
 	    ansible.extra_vars = {ansible_python_interpreter: "/usr/bin/python3", node_ip: "192.168.50.10", }
