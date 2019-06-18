@@ -2,7 +2,7 @@
 Automatically deploys a local Virtual Kubernetes Cluster on a local machine. 
 * Helpful for testing cluster enviroments.
 * Every VM in the cluster only has Docker and/or Kubernetes Installed.
-* Ansible Scripts in ```scripts/``` can be easily modified to install any other needed software
+* Ansible Scripts in ```scripts/``` can be easily modified to install any additional software
 ## Dependencies 
 * Ansible
 * Python and pip
