@@ -17,7 +17,7 @@ $ sudo apt install python python-pip #python2
 ```
 ### Install Ansible
 ```sh
-$ sudo pip install ansible:
+$ sudo pip install ansible
 ```
 ### Install prerequisites
 ```sh
