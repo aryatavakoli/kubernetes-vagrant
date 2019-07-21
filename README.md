@@ -32,7 +32,7 @@ $ wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key
 ```
 Add Virutalbox package repository
 ```sh
-$ sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib" >> /etc/apt/sources.list.d/virtualbox.list
+$ sudo sh -c 'echo "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list'
 ```
 Install Virutalbox
 ```sh
